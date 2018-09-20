@@ -20,13 +20,13 @@ let BetGameIns = new BetGame()
 // }
 
 // setTimeout(()=> {
-//   let totalProfitNum = 0
+//   let maxBet = 0
 //   totalProfit.forEach((profit) => {
-//     totalProfitNum+=profit.payback
+//     maxBet+=profit.payback
 //   })
-//   totalProfitNum-=totalProfit.length
+//   maxBet-=totalProfit.length
 //   console.log('成功返回次数', totalProfit.length)
-//   console.log('总利润：', totalProfitNum)
+//   console.log('总利润：', maxBet)
 // }, 1)
 
 
@@ -55,7 +55,7 @@ function getNum(n){
 
 /*
 * maxResetTime：      脚本重置次数
-* maxBet：            预留位
+* maxBet：            预存最大脚本金额
 * maxSingleLoopTime： 单论循环最大次数
 * maxMultiple:        最大倍数 策略范围，能接受最大倍数
 * betBaseNum：        投注基准
@@ -65,62 +65,71 @@ function getNum(n){
 function script1(maxResetTime, maxBet, maxSingleLoopTime, maxMultiple, betBaseNum, betBasePoint ) {
   // counter
  
-  // 总返回数据
-  let totalProfit = []
+  // 总调用次数
+  let betCounter = 0
   // 总利润
-  let totalProfitNum = 0
+  // let maxBet = 0
   // 总成本
   let totalBet = 0
   // 当前最大轮数
   let maxResetCounter = 0
   // 100次循环的计数
-  let bigCounter = 0
+  let maxSingleLoopTimeCounter = 0
   // 翻倍循环的计数
-  let doubleCounter = 0
+  let maxMultipleCounter = 0
 
   function loop(betNum, point) {
-    if(maxResetCounter+1 >= maxResetTime) {
+    if(maxResetCounter >= maxResetTime) {
       // console.log('done for '+maxResetTime)
-      // console.log('totalProfit : '+(totalProfitNum - totalBet))
+      // console.log('totalProfit : '+(maxBet - totalBet))
       return
     }
-    // if(totalBet >= maxBet) {
+    if(betNum> maxBet) {
+      console.log('betNum,maxBet',betNum,maxBet)
+      return
+    }
+    // if(totalBet >= maxBet*1.5) {
     //   // console.log('done for '+maxResetTime)
-    //   // console.log('totalProfit : '+(totalProfitNum - totalBet))
+    //   // console.log('totalProfit : '+(maxBet - totalBet))
+    //   console.log('*1.5')
     //   return
     // }
-    
-    totalBet+=betNum
-    console.log(betNum,'betNum')
 
+    totalBet+=betNum
+    // 
+    maxBet-=betNum
     let res = BetGameIns.challenge(betNum, point)
-      // 计算总利益
-    totalProfitNum+=res.payback
+    betCounter++
+    // 计算总利益
+    maxBet+=res.payback
+    console.log(betNum,'betNum', maxBet)
+
     // totalProfit.push(res)
     
     // 判断重置行为
-    if(bigCounter === maxSingleLoopTime || doubleCounter === maxMultiple){
+    if(maxSingleLoopTimeCounter === maxSingleLoopTime || maxMultipleCounter === maxMultiple){
       maxResetCounter++
-      if(bigCounter === maxSingleLoopTime) {console.log('\u001b[31m 达到最大值，或者最大倍数 \u001b[39m')}
-      if(doubleCounter === maxMultiple) {console.log('\u001b[31m 达到最大值，或者最大倍数 \u001b[39m')}
+      if(maxSingleLoopTimeCounter === maxSingleLoopTime) {console.log('\u001b[31m 达到单论最大值 \u001b[39m')}
+      if(maxMultipleCounter === maxMultiple) {console.log('\u001b[31m 最大倍数 \u001b[39m')}
 
-      // console.log(bigCounter, doubleCounter)
-      bigCounter = 0
-      doubleCounter =0
+      // console.log(maxSingleLoopTimeCounter, maxMultipleCounter)
+      maxSingleLoopTimeCounter = 0
+      maxMultipleCounter =0
       loop(betBaseNum, betBasePoint)
     } else {
-      if (doubleCounter > 0 && res.payback>0) {
+      if (maxMultipleCounter > 0 && res.payback>0) {
         // console.log('\u001b[32m上次失败，本次成功 \u001b[36m')
-        bigCounter = 0
-        doubleCounter =0
+        maxSingleLoopTimeCounter = 0
+        maxMultipleCounter =0
         loop(betBaseNum, betBasePoint)
       } else {
         // console.log('\u001b[35m 一直赢 \u001b[36m')
-        bigCounter++
-        let olddoubleCounter = doubleCounter
-        doubleCounter++
-        // doubleCounter
-        loop((getNum(olddoubleCounter+1)*betBaseNum), betBasePoint)
+        maxSingleLoopTimeCounter++
+        let oldmaxMultipleCounter = maxMultipleCounter
+        maxMultipleCounter++
+        // maxMultipleCounter
+        let newNumber = (getNum(oldmaxMultipleCounter+1)*betBaseNum)
+        loop(newNumber, betBasePoint)
       }
     }
   }
@@ -128,23 +137,28 @@ function script1(maxResetTime, maxBet, maxSingleLoopTime, maxMultiple, betBaseNu
   return {
     //  totalProfit,
     // 总利润
-     totalProfitNum,
+     maxBet,
     // 总成本
     totalBet,
+    betCounter
   }
 }
 
 // 
 let totalProfit = []
 let totalBet = 0
-let totalProfitNum = 0
+let maxBet = 0
+let betCounter = 0
 for( let i=0; i<1; i++) {
- let a =  script1(10 ,1000, 100, 10, 1, 50)
+ let a =  script1(8 ,2000, 100, 2, 1,80)
  totalProfit.push(a)
 }
 totalProfit.forEach((profit) => {
   totalBet+=profit.totalBet
-  totalProfitNum+=(profit.totalProfitNum-profit.totalBet)
+  maxBet+=profit.maxBet
+  betCounter+=profit.betCounter
 })
+console.log(totalProfit)
 console.log(totalBet)
-console.log(totalProfitNum)
+console.log(betCounter)
+console.log(maxBet)
