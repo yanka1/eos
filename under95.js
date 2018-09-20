@@ -6,7 +6,7 @@ let count = 0
 let docubleSuc = false
 let docubleCounter = 0
 
-let preA50 = null
+let prevA50 = null
 let durCount = 0
 let totalA50 = []
 let totalInc = []
@@ -18,24 +18,24 @@ let totalDice = 0
 
 for ( let i = 0;i<100;i++) {
   let dice = parseInt(Math.random()*101)
-  // 判断小于96的次数
-  if ( dice<96) {
-    count++
-  }
+  // // 判断小于96的次数
+  // if ( dice<96) {
+  //   count++
+  // }
   // 判断次数每次大于10的次数
   if(dice>49) {
-    if(preA50 === null) {
-      preA50 = true
+    if(prevA50 === null) {
+      prevA50 = true
     }
-    if(preA50 ===true) {
+    if(prevA50 ===true) {
       durCount++
     }
   }else {
     diceCountU50++
     if (durCount) {
-    if(durCount===totalInc[totalInc.length-1]+1) {
-      totalInc.pop()
-    }
+      if(durCount===totalInc[totalInc.length-1]+1) {
+        totalInc.pop()
+      }
       totalInc.push(durCount)
     }
     if(durCount>11) {
@@ -61,7 +61,7 @@ for ( let i = 0;i<100;i++) {
 // console.log(totalInc.filter((item) => item===4).length, '倍增小于5的次数')
 // console.log(totalInc.filter((item) => item===5).length, '倍增小于6的次数')
 // console.log(totalInc.filter((item) => item===6).length, '倍增小于7的次数')
-console.log(totalInc.filter((item) => item===7).length, '倍增小于8的次数')
+  console.log(totalInc.filter((item) => item===7).length, '倍增小于8的次数')  
 // console.log(totalInc.filter((item) => item===8).length, '倍增小于9的次数')
 // console.log(totalInc.filter((item) => item===9).length, '倍增小于10的次数')
 // console.log(totalInc.filter((item) => item===10).length, '倍增小于11的次数')
