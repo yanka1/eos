@@ -91,10 +91,10 @@ let maxBet = 0
 let betCounter = 0
 for( let i=0; i<10; i++) {
   if(i ===0) {
-    let a =  winChaseLoseLose(100 ,2000, 9, 1,50)
+    let a =  winChaseLoseLose(100 ,2000, 8, 1,50)
     totalProfit.push(a)
   }else {
-    let b =  winChaseLoseLose( 100,totalProfit[totalProfit.length-1].maxBet, 9, 1,50)
+    let b =  winChaseLoseLose( 100,totalProfit[totalProfit.length-1].maxBet, 8, 1,50)
     totalProfit.push(b)
   }
 }
@@ -106,4 +106,4 @@ totalProfit.forEach((profit) => {
 console.log(totalProfit)
 console.log(totalBet)
 console.log(betCounter)
-console.log(maxBet)
+console.log(totalProfit[totalProfit.length-1].maxBet-2000,'本次收益')
