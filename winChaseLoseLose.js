@@ -94,7 +94,7 @@ for( let i=0; i<10; i++) {
     let a =  winChaseLoseLose(100 ,2000, 8, 1,50)
     totalProfit.push(a)
   }else {
-    let b =  winChaseLoseLose( 100,totalProfit[totalProfit.length-1].maxBet, 8, 1,50)
+    let b =  winChaseLoseLose( 100,totalProfit[totalProfit.length-1].maxBet, 8, 12,50)
     totalProfit.push(b)
   }
 }
