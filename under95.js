@@ -55,21 +55,21 @@ for ( let i = 0;i<100;i++) {
 // console.log(totalA50.length, '连续11次大于49的数组')
 
 // let newtotalInc = totalInc.filter((item) => item<3)
-// console.log(totalInc.filter((item) => item===1).length, '倍增小于2的次数')
-// console.log(totalInc.filter((item) => item===2).length, '倍增小于3的次数')
-// console.log(totalInc.filter((item) => item===3).length, '倍增小于4的次数')
-// console.log(totalInc.filter((item) => item===4).length, '倍增小于5的次数')
-// console.log(totalInc.filter((item) => item===5).length, '倍增小于6的次数')
-// console.log(totalInc.filter((item) => item===6).length, '倍增小于7的次数')
-  console.log(totalInc.filter((item) => item===7).length, '倍增小于8的次数')  
-// console.log(totalInc.filter((item) => item===8).length, '倍增小于9的次数')
-// console.log(totalInc.filter((item) => item===9).length, '倍增小于10的次数')
-// console.log(totalInc.filter((item) => item===10).length, '倍增小于11的次数')
-// console.log(totalInc.filter((item) => item===11).length, '倍增小于12的次数')
-// console.log(totalInc.filter((item) => item===12).length, '倍增小于13的次数')
-// console.log(totalInc.filter((item) => item===13).length, '倍增小于14的次数')
+console.log(totalInc.filter((item) => item===1).length, '倍增小于2的次数')
+console.log(totalInc.filter((item) => item===2).length, '倍增小于3的次数')
+console.log(totalInc.filter((item) => item===3).length, '倍增小于4的次数')
+console.log(totalInc.filter((item) => item===4).length, '倍增小于5的次数')
+console.log(totalInc.filter((item) => item===5).length, '倍增小于6的次数')
+console.log(totalInc.filter((item) => item===6).length, '倍增小于7的次数')
+console.log(totalInc.filter((item) => item===7).length, '倍增小于8的次数')
+console.log(totalInc.filter((item) => item===8).length, '倍增小于9的次数')
+console.log(totalInc.filter((item) => item===9).length, '倍增小于10的次数')
+console.log(totalInc.filter((item) => item===10).length, '倍增小于11的次数')
+console.log(totalInc.filter((item) => item===11).length, '倍增小于12的次数')
+console.log(totalInc.filter((item) => item===12).length, '倍增小于13的次数')
+console.log(totalInc.filter((item) => item===13).length, '倍增小于14的次数')
 }
 
-for ( let i = 0;i<100;i++) {
+// for ( let i = 0;i<100;i++) {
   betModule()
-}
+// }
